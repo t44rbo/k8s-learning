@@ -1,0 +1,4 @@
+Release {{ .Release.Name }} deployed successfully.
+
+Application: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+Replicas: {{ .Values.replicaCount }}
