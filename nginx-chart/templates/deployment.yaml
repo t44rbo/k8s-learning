@@ -5,7 +5,9 @@ metadata:
   labels:
     app: {{ .Release.Name }}-nginx
 spec:
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -44,3 +46,10 @@ spec:
           value: {{ .Values.config.appColor }}
         - name: APP_ENV
           value: {{ .Values.config.appEnv }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
